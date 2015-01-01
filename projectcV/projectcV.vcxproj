@@ -80,6 +80,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VideoCap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VideoCap.h" />
