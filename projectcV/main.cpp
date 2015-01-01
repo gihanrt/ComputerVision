@@ -1,4 +1,4 @@
-/*author gihan tharanga*/
+/*@author gihan tharanga*/
 
 #include <iostream>
 #include <string>
