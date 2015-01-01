@@ -26,5 +26,8 @@
     <ClInclude Include="VideoCap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FaceRec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

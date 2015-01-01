@@ -4,12 +4,10 @@
 #include <string>
 
 //video capturing methods
-namespace vcm
-{
+
 	int videoCapturing();
 	int videoCapOriginal();
 
 	/*detect the faces display the frames and number of face*/
 	int FaceDetector(std::string&);
 
-}

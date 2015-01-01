@@ -232,6 +232,8 @@ void LBPHFaceTrainer(){
 
 //lbpcascades works in lbphrecognier as fast as haarcascades 
 int  FaceRecognition(){
+	
+	cout << "start..." << endl;
 
 	//load pre-trained data sets
 	Ptr<FaceRecognizer>  model = createLBPHFaceRecognizer();

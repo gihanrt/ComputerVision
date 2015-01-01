@@ -14,7 +14,7 @@ using namespace std;
 using namespace cv;
 
 
-int vcm::FaceDetector(string &classifier){
+int FaceDetector(string &classifier){
 
 	//haarcascade_frontalface_alt2
 	//string face = "C:/opencv/sources/data/lbpcascades/lbpcascade_frontalface.xml";
@@ -101,7 +101,7 @@ int vcm::FaceDetector(string &classifier){
 	}
 }
 
-int vcm::videoCapturing()
+int videoCapturing()
 {
 	VideoCapture cap(0);
 
@@ -129,7 +129,7 @@ int vcm::videoCapturing()
 	return 0;
 }
 
-int vcm::videoCapOriginal()
+int videoCapOriginal()
 {
 	/*camera*/
 	VideoCapture cap(0);
