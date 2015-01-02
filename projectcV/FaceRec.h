@@ -163,7 +163,7 @@ void fisherFaceTrainer(){
 	Mat W = model->getMat("eigenvectors");
 	// Get the sample mean from the training data
 	Mat mean = model->getMat("mean");
-	imshow("mean", norm_0_255(mean.reshape(1, images[0].rows)));
+	//imshow("mean", norm_0_255(mean.reshape(1, images[0].rows)));
 	//imwrite(format("%s/mean.png", output_folder.c_str()), norm_0_255(mean.reshape(1, images[0].rows)));
 
 	// Display or save the first, at most 16 Fisherfaces:
@@ -233,7 +233,7 @@ void LBPHFaceTrainer(){
 //lbpcascades works in lbphrecognier as fast as haarcascades 
 int  FaceRecognition(){
 	
-	cout << "start..." << endl;
+	cout << "start recognizing..." << endl;
 
 	//load pre-trained data sets
 	Ptr<FaceRecognizer>  model = createLBPHFaceRecognizer();

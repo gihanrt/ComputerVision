@@ -19,7 +19,12 @@ using namespace cv;
 int main()
 {
 	
-	//int val = videoCapOriginal();
+	/*start training*/	
+	//fisherFaceTrainer();
+	
+	/*start recognizing*/
+	int value = FaceRecognition();
+
 	system("pause");
 	return 0;
 }
