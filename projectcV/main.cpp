@@ -10,8 +10,9 @@
 #include "opencv2\opencv.hpp"
 
 /*header files*/
-#include "FaceRec.h"
-#include "VideoCap.h"
+//#include "FaceRec.h"
+//#include "VideoCap.h"
+#include "imgProc.h"
 
 using namespace std;
 using namespace cv;
@@ -19,11 +20,8 @@ using namespace cv;
 int main()
 {
 	
-	/*start training*/	
-	//fisherFaceTrainer();
-	
-	/*start recognizing*/
-	int value = FaceRecognition();
+	int x = smoothingImage();
+
 
 	system("pause");
 	return 0;

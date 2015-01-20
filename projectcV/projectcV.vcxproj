@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FaceRec.h" />
+    <ClInclude Include="imgProc.h" />
     <ClInclude Include="VideoCap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

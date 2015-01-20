@@ -17,7 +17,7 @@
 using namespace std;
 using namespace cv;
 
-static Mat norm_0_255(InputArray _src) {
+static Mat MatNorm(InputArray _src) {
 	Mat src = _src.getMat();
 	// Create and return normalized image:
 	Mat dst;
@@ -35,7 +35,7 @@ static Mat norm_0_255(InputArray _src) {
 	return dst;
 }
 
-static void read_csv(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';'){
+static void dbread(const string& filename, vector<Mat>& images, vector<int>& labels, char separator = ';'){
 	std::ifstream file(filename.c_str(), ifstream::in);
 
 	if (!file){
@@ -62,7 +62,7 @@ void eigenFaceTrainer(){
 
 	try{
 		string filename = "E:/at.txt";
-		read_csv(filename, images, labels);
+		dbread(filename, images, labels);
 
 		cout << "size of the images is " << images.size() << endl;
 		cout << "size of the labes is " << labels.size() << endl;
@@ -91,8 +91,8 @@ void eigenFaceTrainer(){
 	//Mat mean = model->getMat("mean");
 
 	//////save or display
-	//imshow("mean", norm_0_255(mean.reshape(1,images[0].rows)));
-	////imwrite(format("%s/mean.png", output_folder.c_str()), norm_0_255(mean.reshape(1, images[0].rows)));
+	//imshow("mean", MatNorm(mean.reshape(1,images[0].rows)));
+	////imwrite(format("%s/mean.png", output_folder.c_str()), MatNorm(mean.reshape(1, images[0].rows)));
 
 	////display or save eigenfaces
 	//for (int i = 0; i < min(10, w.cols); i++)
@@ -104,13 +104,13 @@ void eigenFaceTrainer(){
 	//	Mat ev = w.col(i).clone();
 
 	//	// Reshape to original size & normalize to [0...255] for imshow.
-	//	Mat grayscale = norm_0_255(ev.reshape(1, height));
+	//	Mat grayscale = MatNorm(ev.reshape(1, height));
 	//	// Show the image & apply a Jet colormap for better sensing.
 	//	Mat cgrayscale;
 	//	applyColorMap(grayscale, cgrayscale, COLORMAP_JET);
 	//	//display or save
 	//	imshow(format("eigenface_%d", i), cgrayscale);
-	//	//imwrite(format("%s/eigenface_%d.png", output_folder.c_str(), i), norm_0_255(cgrayscale));
+	//	//imwrite(format("%s/eigenface_%d.png", output_folder.c_str(), i), MatNorm(cgrayscale));
 	//}
 
 	////display or save image reconstruction
@@ -121,7 +121,7 @@ void eigenFaceTrainer(){
 	//	Mat projection = subspaceProject(evs, mean, images[0].reshape(1, 1));
 	//	Mat reconstruction = subspaceReconstruct(evs, mean, projection);
 	//	// Normalize the result:
-	//	reconstruction = norm_0_255(reconstruction.reshape(1, images[0].rows));
+	//	reconstruction = MatNorm(reconstruction.reshape(1, images[0].rows));
 	//	// Display or save:
 	//	imshow(format("eigenface_reconstruction_%d", num_components), reconstruction);
 	//	//imwrite(format("%s/eigenface_reconstruction_%d.png", output_folder.c_str(), num_components), reconstruction);	
@@ -131,13 +131,13 @@ void eigenFaceTrainer(){
 }
 
 void fisherFaceTrainer(){
-
+	/*in this two vector we put the images and labes for training*/
 	vector<Mat> images;
 	vector<int> labels;
 
-	try{
+	try{		
 		string filename = "E:/at.txt";
-		read_csv(filename, images, labels);
+		dbread(filename, images, labels);
 
 		cout << "size of the images is " << images.size() << endl;
 		cout << "size of the labes is " << labels.size() << endl;
@@ -147,6 +147,7 @@ void fisherFaceTrainer(){
 		cerr << " Error opening the file " << e.msg << endl;
 		exit(1);
 	}
+
 
 	Ptr<FaceRecognizer> model = createFisherFaceRecognizer();
 
@@ -163,8 +164,8 @@ void fisherFaceTrainer(){
 	Mat W = model->getMat("eigenvectors");
 	// Get the sample mean from the training data
 	Mat mean = model->getMat("mean");
-	//imshow("mean", norm_0_255(mean.reshape(1, images[0].rows)));
-	//imwrite(format("%s/mean.png", output_folder.c_str()), norm_0_255(mean.reshape(1, images[0].rows)));
+	//imshow("mean", MatNorm(mean.reshape(1, images[0].rows)));
+	//imwrite(format("%s/mean.png", output_folder.c_str()), MatNorm(mean.reshape(1, images[0].rows)));
 
 	// Display or save the first, at most 16 Fisherfaces:
 	/*for (int i = 0; i < min(16, W.cols); i++) {
@@ -173,13 +174,13 @@ void fisherFaceTrainer(){
 	// get eigenvector #i
 	Mat ev = W.col(i).clone();
 	// Reshape to original size & normalize to [0...255] for imshow.
-	Mat grayscale = norm_0_255(ev.reshape(1, height));
+	Mat grayscale = MatNorm(ev.reshape(1, height));
 	// Show the image & apply a Bone colormap for better sensing.
 	Mat cgrayscale;
 	applyColorMap(grayscale, cgrayscale, COLORMAP_BONE);
 	// Display or save:
 	//imshow(format("fisherface_%d", i), cgrayscale);
-	//imwrite(format("%s/fisherface_%d.png", output_folder.c_str(), i), norm_0_255(cgrayscale));
+	//imwrite(format("%s/fisherface_%d.png", output_folder.c_str(), i), MatNorm(cgrayscale));
 	}
 
 	// Display or save the image reconstruction at some predefined steps:
@@ -189,7 +190,7 @@ void fisherFaceTrainer(){
 	Mat projection = subspaceProject(ev, mean, images[0].reshape(1, 1));
 	Mat reconstruction = subspaceReconstruct(ev, mean, projection);
 	// Normalize the result:
-	reconstruction = norm_0_255(reconstruction.reshape(1, images[0].rows));
+	reconstruction = MatNorm(reconstruction.reshape(1, images[0].rows));
 	// Display or save:
 	imshow(format("fisherface_reconstruction_%d", num_component), reconstruction);
 	//imwrite(format("%s/fisherface_reconstruction_%d.png", output_folder.c_str(), num_component), reconstruction);
@@ -205,7 +206,7 @@ void LBPHFaceTrainer(){
 
 	try{
 		string filename = "E:/at.txt";
-		read_csv(filename, images, labels);
+		dbread(filename, images, labels);
 
 		cout << "size of the images is " << images.size() << endl;
 		cout << "size of the labes is " << labels.size() << endl;
@@ -236,8 +237,8 @@ int  FaceRecognition(){
 	cout << "start recognizing..." << endl;
 
 	//load pre-trained data sets
-	Ptr<FaceRecognizer>  model = createLBPHFaceRecognizer();
-	model->load("E:/FDB/yaml/LBPHface.yml");
+	Ptr<FaceRecognizer>  model = createFisherFaceRecognizer();
+	model->load("E:/FDB/yaml/fisherface.yml");
 
 	Mat testSample = imread("E:/db/s41/5.pgm", 0);
 
